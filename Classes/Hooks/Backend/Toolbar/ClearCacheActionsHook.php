@@ -8,10 +8,12 @@
 namespace KayStrobach\Dyncss\Hooks\Backend\Toolbar;
 
 use TYPO3\CMS\Backend\Toolbar\ClearCacheActionsHookInterface;
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
+
 
 class ClearCacheActionsHook implements ClearCacheActionsHookInterface
 {
@@ -34,12 +36,13 @@ class ClearCacheActionsHook implements ClearCacheActionsHookInterface
             /** @var \TYPO3\CMS\Core\Imaging\IconFactory $iconFactory */
             $iconFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconFactory::class);
             $translationPrefix = 'LLL:EXT:dyncss/Resources/Private/Language/locallang.xlf:dyncss.toolbar.clearcache.';
+            $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
             if (version_compare(TYPO3_version, '8.7', '<')) {
                 $cacheActions[] = [
                     'id' => 'dyncss',
                     'title' => LocalizationUtility::translate($translationPrefix . 'title', 'Dyncss'),
                     'description' => LocalizationUtility::translate($translationPrefix . 'description', 'Dyncss'),
-                    'href' => BackendUtility::getModuleUrl('tce_db', $hrefParams),
+                    'href' => $uriBuilder->buildUriFromRoute('tce_db', $hrefParams),
                     'icon' => $iconFactory->getIcon('actions-system-cache-clear-dyncss', Icon::SIZE_SMALL)->render()
                 ];
             } else {
@@ -47,7 +50,7 @@ class ClearCacheActionsHook implements ClearCacheActionsHookInterface
                     'id' => 'dyncss',
                     'title' => $translationPrefix . 'title',
                     'description' => $translationPrefix . 'description',
-                    'href' => BackendUtility::getModuleUrl('tce_db', $hrefParams),
+                    'href' => $uriBuilder->buildUriFromRoute('tce_db', $hrefParams),
                     'iconIdentifier' => 'actions-system-cache-clear-dyncss'
                 ];
             }
