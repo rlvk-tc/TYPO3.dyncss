@@ -19,7 +19,7 @@ class ApplicationContext
     public function __construct()
     {
         $objectManager = GeneralUtility::makeInstance('TYPO3\CMS\Extbase\Object\ObjectManager');
-        $this->featureManager = GeneralUtility::makeInstance(ObjectManager::class)->get(FeatureManager::class);
+        $this->featureManager = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Object\ObjectManager::class)->get(\TYPO3\CMS\Install\Configuration\FeatureManager::class);
     }
 
     /**
