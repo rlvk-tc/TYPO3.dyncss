@@ -45,7 +45,7 @@ class DyncssService
         if (TYPO3_MODE === 'FE') {
             $file = GeneralUtility::getFileAbsFileName($file);
         } elseif (TYPO3_MODE === 'BE' && !self::isCliMode()) {
-            $file = GeneralUtility::resolveBackPath(PATH_typo3.$file);
+            $file = GeneralUtility::resolveBackPath(\TYPO3\CMS\Core\Core\Environment::getPublicPath() . '/typo3/' . $file);
         }
 
         return $file;
